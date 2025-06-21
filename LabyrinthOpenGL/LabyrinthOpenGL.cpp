@@ -22,6 +22,89 @@ using namespace std;
 //SUBSYSTEM:WINDOWS
 
 
+
+const float PI = 3.1415;
+int alpha = 65;
+
+const int windowWidth = 2200;
+const int windowHeigth = 900;
+
+const float blockWidth = 50;
+const float blockHeigth = 90 * cos(alpha * PI / 180);
+const float blockDepth = 50 * sin(alpha * PI / 180);
+
+const vector<string> map = {
+        "########################################",
+        "#    #         #                       #",
+        "#  ###         #                       #",
+        "#    #    #    ######    ##########    #",
+        "###  #    #    #         #        #    #",
+        "#    #    #              #   #    #    #",
+        "#  ###    #              #   ###########",
+        "#    #    #########      #        #    #",
+        "###  #            #      #        #    #",
+        "#    #            #      #####    #    #",
+        "#  ###    ####    #                    #",
+        "#    #       #    #                    #",
+        "#    #       #    #######   #          #",
+        "#    #########    #         #          #",
+        "#                 #         #          #",
+        "########################################"
+};
+
+
+void paintWall() {
+    glBegin(GL_TRIANGLE_STRIP);
+        glColor3f(0.2, 0.2, 0.2);
+        glVertex2f(0, 0);
+        glVertex2f(blockWidth, 0);
+        glVertex2f(0, blockHeigth);
+        glVertex2f(blockWidth, blockHeigth);
+    glEnd();
+    glTranslatef(0, blockHeigth, 0);
+
+    glBegin(GL_TRIANGLE_STRIP);
+        glColor3f(0.5, 0.5, 0.5);
+        glVertex2f(0, 0);
+        glVertex2f(blockWidth, 0);
+        glVertex2f(0, blockDepth);
+        glVertex2f(blockWidth, blockDepth);
+    glEnd();
+    glTranslatef(0, -blockHeigth, 0);
+}
+
+
+void paintMap(const vector<string> map) {
+    glPushMatrix();
+    glTranslatef(50, windowHeigth - blockHeigth - blockDepth - 50, 0);
+
+    for (int i = 0; i < map.size(); i++)
+    {
+        for (int j = 0; j < map[i].size(); j++)
+        {
+            if (map[i][j] == '#')
+                paintWall();
+            glTranslatef(blockWidth, 0, 0);
+        }
+        glTranslatef(map[i].size() * -blockWidth, -blockDepth, 0);
+    }
+    glPopMatrix();
+}
+
+
+void GetMousePos(HWND hwnd, int& x, int& y)
+{
+    POINT pt;
+    if (GetCursorPos(&pt)) {
+        ScreenToClient(hwnd, &pt);
+        x = pt.x;
+        y = pt.y;
+    }
+    else
+        x = y = 0;
+}
+
+
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 void EnableOpenGL(HWND hwnd, HDC*, HGLRC*);
 void DisableOpenGL(HWND, HDC, HGLRC);
@@ -64,8 +147,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
-        256,
-        256,
+        windowWidth,
+        windowHeigth,
         NULL,
         NULL,
         hInstance,
@@ -93,11 +176,12 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
-            glOrtho(0, 256, 0, 256, -1, 1);
+            glOrtho(0, windowWidth, 0, windowHeigth, -1, 1);
             glMatrixMode(GL_MODELVIEW);
             glLoadIdentity();
 
 
+            paintMap(map);
 
 
             SwapBuffers(hDC);
