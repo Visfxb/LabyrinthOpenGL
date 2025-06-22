@@ -1,10 +1,8 @@
 ﻿//#include <GLFW/glfw3.h>
 #include <GL/glew.h>
 #include <Windows.h>
-#include <iostream>
-#include <vector>
+#include "Player.h"
 #include <cmath>
-#include <string>
 
 //#pragma comment (lib, "glfw32.lib")
 #pragma comment (lib, "opengl32.lib")
@@ -13,18 +11,9 @@
 #pragma comment (lib, "Gdi32.lib")
 using namespace std;
 
-//linker
-//opengl32.lib
-//glew32.lib
-//glfw3.lib
-//User32.lib
-//Gdi32.lib
-//SUBSYSTEM:WINDOWS
-
-
 
 const float PI = 3.1415;
-int alpha = 65;
+const int alpha = 65;
 
 const int windowWidth = 2200;
 const int windowHeigth = 900;
@@ -54,6 +43,7 @@ const vector<string> map = {
 
 
 void paintWall() {
+    glPushMatrix();
     glBegin(GL_TRIANGLE_STRIP);
         glColor3f(0.2, 0.2, 0.2);
         glVertex2f(0, 0);
@@ -70,7 +60,33 @@ void paintWall() {
         glVertex2f(0, blockDepth);
         glVertex2f(blockWidth, blockDepth);
     glEnd();
-    glTranslatef(0, -blockHeigth, 0);
+
+    //glBegin(GL_LINE_LOOP);
+    //    glColor3f(0, 0, 0);
+    //    glVertex2f(0, -blockHeigth);
+    //    glVertex2f(0, blockDepth);
+    //    glVertex2f(blockWidth, blockDepth);
+    //    glVertex2f(blockWidth, -blockHeigth);
+    //glEnd();
+    glPopMatrix();
+}
+
+void paintFloor() {
+    glBegin(GL_TRIANGLE_STRIP);
+        glColor3f(0.7, 0.7, 0);
+        glVertex2f(0, 0);
+        glVertex2f(blockWidth, 0);
+        glVertex2f(0, blockDepth);
+        glVertex2f(blockWidth, blockDepth);
+    glEnd();
+
+    //glBegin(GL_LINE_LOOP);
+    //    glColor3f(0, 0, 0);
+    //    glVertex2f(0, 0);
+    //    glVertex2f(0, blockDepth);
+    //    glVertex2f(blockWidth, blockDepth);
+    //    glVertex2f(blockWidth, 0);
+    //glEnd();
 }
 
 
@@ -84,6 +100,8 @@ void paintMap(const vector<string> map) {
         {
             if (map[i][j] == '#')
                 paintWall();
+            else
+                paintFloor();
             glTranslatef(blockWidth, 0, 0);
         }
         glTranslatef(map[i].size() * -blockWidth, -blockDepth, 0);
