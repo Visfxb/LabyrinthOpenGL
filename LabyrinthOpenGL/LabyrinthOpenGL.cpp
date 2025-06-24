@@ -1,26 +1,5 @@
-﻿//#include <GLFW/glfw3.h>
-#include <GL/glew.h>
-#include <Windows.h>
-#include "Player.h"
-#include <cmath>
-
-//#pragma comment (lib, "glfw32.lib")
-#pragma comment (lib, "opengl32.lib")
-#pragma comment (lib, "glew32.lib")
-#pragma comment (lib, "User32.lib")
-#pragma comment (lib, "Gdi32.lib")
-using namespace std;
-
-
-const float PI = 3.1415;
-const int alpha = 65;
-
-const int windowWidth = 2200;
-const int windowHeigth = 900;
-
-const float blockWidth = 50;
-const float blockHeigth = 90 * cos(alpha * PI / 180);
-const float blockDepth = 50 * sin(alpha * PI / 180);
+﻿#include "Player.h"
+#define debugLines
 
 const vector<string> map = {
         "########################################",
@@ -41,7 +20,6 @@ const vector<string> map = {
         "########################################"
 };
 
-
 void paintWall() {
     glPushMatrix();
     glBegin(GL_TRIANGLE_STRIP);
@@ -61,13 +39,16 @@ void paintWall() {
         glVertex2f(blockWidth, blockDepth);
     glEnd();
 
-    //glBegin(GL_LINE_LOOP);
-    //    glColor3f(0, 0, 0);
-    //    glVertex2f(0, -blockHeigth);
-    //    glVertex2f(0, blockDepth);
-    //    glVertex2f(blockWidth, blockDepth);
-    //    glVertex2f(blockWidth, -blockHeigth);
-    //glEnd();
+#ifdef debugLines
+    glLineWidth(1);
+    glBegin(GL_LINE_LOOP);
+        glColor3f(0, 0, 0);
+        glVertex2f(0, -blockHeigth);
+        glVertex2f(0, blockDepth);
+        glVertex2f(blockWidth, blockDepth);
+        glVertex2f(blockWidth, -blockHeigth);
+    glEnd();
+#endif
     glPopMatrix();
 }
 
@@ -80,17 +61,20 @@ void paintFloor() {
         glVertex2f(blockWidth, blockDepth);
     glEnd();
 
-    //glBegin(GL_LINE_LOOP);
-    //    glColor3f(0, 0, 0);
-    //    glVertex2f(0, 0);
-    //    glVertex2f(0, blockDepth);
-    //    glVertex2f(blockWidth, blockDepth);
-    //    glVertex2f(blockWidth, 0);
-    //glEnd();
+#ifdef debugLines
+    glLineWidth(1);
+    glBegin(GL_LINE_LOOP);
+        glColor3f(0, 0, 0);
+        glVertex2f(0, 0);
+        glVertex2f(0, blockDepth);
+        glVertex2f(blockWidth, blockDepth);
+        glVertex2f(blockWidth, 0);
+    glEnd();
+#endif
 }
 
 
-void paintMap(const vector<string> map) {
+void paintMap(const vector<string> map, Player& player) {
     glPushMatrix();
     glTranslatef(50, windowHeigth - blockHeigth - blockDepth - 50, 0);
 
@@ -100,6 +84,11 @@ void paintMap(const vector<string> map) {
         {
             if (map[i][j] == '#')
                 paintWall();
+            else if (j == player.getX() && i == player.getY())
+            {
+                paintFloor();
+                player.paintPlayer();
+            }
             else
                 paintFloor();
             glTranslatef(blockWidth, 0, 0);
@@ -175,6 +164,11 @@ int WINAPI WinMain(HINSTANCE hInstance,
     ShowWindow(hwnd, nCmdShow);
     EnableOpenGL(hwnd, &hDC, &hRC);
 
+    Player test;
+    test.setXY(map, 36, 12);
+    auto lastInputTick = high_resolution_clock::now();
+    const int delay = 1000 / 7;
+
     while (!bQuit)
     {
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -198,12 +192,22 @@ int WINAPI WinMain(HINSTANCE hInstance,
             glMatrixMode(GL_MODELVIEW);
             glLoadIdentity();
 
+            auto now = high_resolution_clock::now();
+            auto ms = duration_cast<milliseconds>(now - lastInputTick).count();
+            if (ms >= delay)
+            {
+                if (GetKeyState('W') < 0) test.movePlayer(map, -1);
+                if (GetKeyState('A') < 0) test.movePlayer(map, -2);
+                if (GetKeyState('S') < 0) test.movePlayer(map, 1);
+                if (GetKeyState('D') < 0) test.movePlayer(map, 2);
+                lastInputTick = now;
+            }
 
-            paintMap(map);
+            paintMap(map, test);
 
 
             SwapBuffers(hDC);
-            Sleep(1);
+            Sleep(10);
         }
     }
     DisableOpenGL(hwnd, hDC, hRC);

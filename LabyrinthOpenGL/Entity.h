@@ -1,8 +1,5 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
+#include "Include.h"
 
 class Entity
 {
@@ -13,7 +10,7 @@ protected:
 public:
 	bool isValid(vector<string> map, int x, int y)const {
 		if (x >= 0 && x < map[0].size() && y >= 0 && y < map.size())
-			if (map[x][y] != '#')
+			if (map[y][x] != '#')
 				return true;
 		return false;
 	}
@@ -21,10 +18,11 @@ public:
 	void setXY(vector<string> map, int x, int y) {
 		if (isValid(map, x, y))
 		{
-			this->x = x; this->y = y;
+			this->x = x;
+			this->y = y;
 		}
 
-	};
+	}
 
 	void setXY(vector<string> map, int startX, int endX, int startY, int endY) {
 		int randX;
@@ -35,9 +33,9 @@ public:
 		} while (isValid(map, randX, randY));
 		x = randX;
 		y = randY;
-	};
+	}
 
-	int getX()const { return x; };
-	int getY()const { return y; };
+	int getX()const { return x; }
+	int getY()const { return y; }
 };
 
