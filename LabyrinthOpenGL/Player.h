@@ -6,29 +6,57 @@ class Player :
 {
 private:
     //int coins;
+    float step;
 public:
-    bool isWallNext(vector<string> map, int vec)const {
-        if (vec % 2 == 0)
-            return map[y][x + vec / 2] == '#';
-        else
-            return map[y + vec][x] == '#';
+    void setStep(float step) { this->step = step; }
+    float getStep()const { return step; }
+
+    bool isWallNext(Map& map, int vec) const {
+        float newX = x;
+        float newY = y;
+
+        if (vec % 2 == 0) newX += vec / 2 * step;
+        else newY += vec * step;
+
+        int x1 = floor(newX);
+        int y1 = floor(newY);
+        int x2 = ceil(newX);
+        int y2 = ceil(newY);
+
+        return map.getMap()[y1][x1] == '#' || map.getMap()[y1][x2] == '#' ||
+               map.getMap()[y2][x1] == '#' || map.getMap()[y2][x2] == '#';
     }
 
-    void movePlayer(vector<string> map, int vec) { //w = -1   a = -2   s = 1   d = 2
+    void movePlayer(Map& map, int vec) {
         if (isWallNext(map, vec))
+        {
+            if (vec % 2 == 0) x = int(x + step);
+            else y = int(y + step);
             return;
+        }
 
-        if (vec % 2 == 0) x += vec / 2;
-        else y += vec;
+        if (vec % 2 == 0) x += vec / 2 * step;
+        else y += vec * step;
     }
 
     void paintPlayer()const {
         glPushMatrix();
-        glLineWidth(5);
-        glBegin(GL_LINES);
-            glColor3f(0, 0, 0);
-            glVertex2f(blockWidth / 2, 0);
-            glVertex2f(blockWidth / 2, blockHeigth / cos(alpha * PI / 180.0) * 0.75);
+        glTranslatef((x - int(x)) * blockWidth, (y - int(y)) * -blockDepth, 0);
+        glBegin(GL_TRIANGLE_STRIP);
+        glColor3f(0.8f, 0, 0);
+        glVertex2f(0, 0);
+        glVertex2f(blockWidth, 0);
+        glVertex2f(0, blockHeigth);
+        glVertex2f(blockWidth, blockHeigth);
+        glEnd();
+        glTranslatef(0, blockHeigth, 0);
+
+        glBegin(GL_TRIANGLE_STRIP);
+        glColor3f(1, 0, 0);
+        glVertex2f(0, 0);
+        glVertex2f(blockWidth, 0);
+        glVertex2f(0, blockDepth);
+        glVertex2f(blockWidth, blockDepth);
         glEnd();
         glPopMatrix();
     }

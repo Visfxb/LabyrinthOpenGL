@@ -1,115 +1,42 @@
 ﻿#include "Player.h"
-#define debugLines
-
-const vector<string> map = {
-        "########################################",
-        "#    #         #                       #",
-        "#  ###         #                       #",
-        "#    #    #    ######    ##########    #",
-        "###  #    #    #         #        #    #",
-        "#    #    #              #   #    #    #",
-        "#  ###    #              #   ###########",
-        "#    #    #########      #        #    #",
-        "###  #            #      #        #    #",
-        "#    #            #      #####    #    #",
-        "#  ###    ####    #                    #",
-        "#    #       #    #                    #",
-        "#    #       #    #######   #          #",
-        "#    #########    #         #          #",
-        "#                 #         #          #",
-        "########################################"
-};
-
-void paintWall() {
-    glPushMatrix();
-    glBegin(GL_TRIANGLE_STRIP);
-        glColor3f(0.2, 0.2, 0.2);
-        glVertex2f(0, 0);
-        glVertex2f(blockWidth, 0);
-        glVertex2f(0, blockHeigth);
-        glVertex2f(blockWidth, blockHeigth);
-    glEnd();
-    glTranslatef(0, blockHeigth, 0);
-
-    glBegin(GL_TRIANGLE_STRIP);
-        glColor3f(0.5, 0.5, 0.5);
-        glVertex2f(0, 0);
-        glVertex2f(blockWidth, 0);
-        glVertex2f(0, blockDepth);
-        glVertex2f(blockWidth, blockDepth);
-    glEnd();
-
-#ifdef debugLines
-    glLineWidth(1);
-    glBegin(GL_LINE_LOOP);
-        glColor3f(0, 0, 0);
-        glVertex2f(0, -blockHeigth);
-        glVertex2f(0, blockDepth);
-        glVertex2f(blockWidth, blockDepth);
-        glVertex2f(blockWidth, -blockHeigth);
-    glEnd();
-#endif
-    glPopMatrix();
-}
-
-void paintFloor() {
-    glBegin(GL_TRIANGLE_STRIP);
-        glColor3f(0.7, 0.7, 0);
-        glVertex2f(0, 0);
-        glVertex2f(blockWidth, 0);
-        glVertex2f(0, blockDepth);
-        glVertex2f(blockWidth, blockDepth);
-    glEnd();
-
-#ifdef debugLines
-    glLineWidth(1);
-    glBegin(GL_LINE_LOOP);
-        glColor3f(0, 0, 0);
-        glVertex2f(0, 0);
-        glVertex2f(0, blockDepth);
-        glVertex2f(blockWidth, blockDepth);
-        glVertex2f(blockWidth, 0);
-    glEnd();
-#endif
-}
+#include "Map.h"
 
 
-void paintMap(const vector<string> map, Player& player) {
+void paintMap(Map& map, Player& player) {
     glPushMatrix();
     glTranslatef(50, windowHeigth - blockHeigth - blockDepth - 50, 0);
 
-    for (int i = 0; i < map.size(); i++)
+    for (int i = 0; i < map.getMap().size(); i++)
     {
-        for (int j = 0; j < map[i].size(); j++)
+        for (int j = 0; j < map.getMap()[i].size(); j++)
         {
-            if (map[i][j] == '#')
-                paintWall();
-            else if (j == player.getX() && i == player.getY())
-            {
-                paintFloor();
-                player.paintPlayer();
-            }
+            if (map.getMap()[i][j] == '#')
+                map.paintWall();
             else
-                paintFloor();
+                map.paintFloor();
             glTranslatef(blockWidth, 0, 0);
         }
-        glTranslatef(map[i].size() * -blockWidth, -blockDepth, 0);
+        glTranslatef(map.getMap()[i].size() * -blockWidth, -blockDepth, 0);
     }
+    glTranslatef(player.getX() * blockWidth, (map.getMap().size() - player.getY()) * blockDepth, 0);
+    player.paintPlayer();
     glPopMatrix();
 }
 
-
-void GetMousePos(HWND hwnd, int& x, int& y)
-{
-    POINT pt;
-    if (GetCursorPos(&pt)) {
-        ScreenToClient(hwnd, &pt);
-        x = pt.x;
-        y = pt.y;
-    }
-    else
-        x = y = 0;
-}
+//void paintMap(Map& map, Player& player) {
+//    int rX = 5;
+//    int dX = rX * 2 + 1;
+//    int rY = 5;
+//    int dY = rY * 2 + 1;
+//
+//    for (int i = 0; i < dY; i++)
+//    {
+//        for (int j = 0; j < dX; j++)
+//        {
+//
+//        }
+//    }
+//}
 
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
@@ -164,10 +91,29 @@ int WINAPI WinMain(HINSTANCE hInstance,
     ShowWindow(hwnd, nCmdShow);
     EnableOpenGL(hwnd, &hDC, &hRC);
 
+    Map map({
+        "########################################",
+        "#    #         #                       #",
+        "#  ###         #                       #",
+        "#    #    #    ######    ##########    #",
+        "###  #    #    #         #        #    #",
+        "#    #    #              #   #    #    #",
+        "#  ###    #              #   ###########",
+        "#    #    #########      #        #    #",
+        "###  #            #      #        #    #",
+        "#    #            #      #####    #    #",
+        "#  ###    ####    #                    #",
+        "#    #       #    #                    #",
+        "#    #       #    #######   #          #",
+        "#    #########    #         #          #",
+        "#                 #         #          #",
+        "########################################"
+        });
     Player test;
     test.setXY(map, 36, 12);
+    test.setStep(0.3f);
     auto lastInputTick = high_resolution_clock::now();
-    const int delay = 1000 / 7;
+    const int delay = 1000 / 30;
 
     while (!bQuit)
     {
@@ -202,8 +148,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
                 if (GetKeyState('D') < 0) test.movePlayer(map, 2);
                 lastInputTick = now;
             }
-
             paintMap(map, test);
+
 
 
             SwapBuffers(hDC);

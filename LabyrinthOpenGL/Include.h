@@ -13,6 +13,9 @@
 #pragma comment (lib, "glew32.lib")
 #pragma comment (lib, "User32.lib")
 #pragma comment (lib, "Gdi32.lib")
+
+#define debugLinesf
+
 using namespace std;
 using namespace chrono;
 
