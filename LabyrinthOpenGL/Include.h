@@ -9,10 +9,12 @@
 #include <chrono>
 
 //#pragma comment (lib, "glfw32.lib")
-#pragma comment (lib, "opengl32.lib")
-#pragma comment (lib, "glew32.lib")
-#pragma comment (lib, "User32.lib")
-#pragma comment (lib, "Gdi32.lib")
+
+struct blockSettings
+{
+    int vec;
+    float visiblePart;
+};
 
 #define debugLinesf
 
