@@ -10,10 +10,27 @@
 
 //#pragma comment (lib, "glfw32.lib")
 
-struct blockSettings
+struct paintSettings
 {
     int vec;
     float visiblePart;
+
+    paintSettings(int vec, float visiblePart) {
+        this->vec = vec;
+        this->visiblePart = visiblePart;
+    }
+};
+struct rgb
+{
+    float red;
+    float green;
+    float blue;
+
+    rgb(float r, float g, float b) {
+        red = r;
+        green = g;
+        blue = b;
+    }
 };
 
 #define debugLinesf
@@ -21,7 +38,7 @@ struct blockSettings
 using namespace std;
 using namespace chrono;
 
-const float PI = 3.1415;
+const float PI = 3.1415926;
 const int alpha = 65;
 
 const int windowWidth = 2200;

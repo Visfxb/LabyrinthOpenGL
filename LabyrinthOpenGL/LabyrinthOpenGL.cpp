@@ -1,4 +1,17 @@
-﻿#include "Map.h"
+﻿#include "Player.h"
+#include "Coin.h"
+#include "Map.h"
+
+void glPrintText(float x, float y, const char* text, HDC hDC, GLuint base)
+{
+	glRasterPos2f(x, y);
+	glColor3f(0, 0, 0);
+	glListBase(base);
+	glCallLists(strlen(text), GL_UNSIGNED_BYTE, text);
+}
+
+
+
 
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
@@ -54,6 +67,29 @@ int WINAPI WinMain(
 	ShowWindow(hwnd, nCmdShow);
 	EnableOpenGL(hwnd, &hDC, &hRC);
 
+	HFONT hFont = CreateFont(
+		24,                // высота шрифта
+		0,                 // ширина
+		0,                 // угол наклона
+		0,                 // ориентация
+		FW_NORMAL,         // толщина
+		FALSE,             // курсив
+		FALSE,             // подчеркивание
+		FALSE,             // зачёркивание
+		ANSI_CHARSET,      // набор символов
+		OUT_DEFAULT_PRECIS,
+		CLIP_DEFAULT_PRECIS,
+		DEFAULT_QUALITY,
+		FF_DONTCARE | DEFAULT_PITCH,
+		L"Consolas"        // имя шрифта
+	);
+	SelectObject(hDC, hFont);
+	GLuint base = glGenLists(256); // 256 символов
+	wglUseFontBitmaps(hDC, 0, 256, base);
+
+
+
+	srand(time(0));
 	Map map({
 		"########################################",
 		"#    #         #                       #",
@@ -72,11 +108,10 @@ int WINAPI WinMain(
 		"#                 #         #          #",
 		"########################################"
 		});
-	Player test;
-	test.setXY(map, 2, 9);
-	test.setStep(0.3f);
+	Entities::Fighters::Player test(38, 1, 0.3f, map);
 	auto lastInputTick = high_resolution_clock::now();
 	const int delay = 1000 / 10;
+	Entities::Items::Coin coin(map, 36, 1);
 
 	while (!bQuit)
 	{
@@ -100,19 +135,24 @@ int WINAPI WinMain(
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
 
-
 			auto now = high_resolution_clock::now();
 			auto ms = duration_cast<milliseconds>(now - lastInputTick).count();
 			if (ms >= delay)
 			{
-				if (GetKeyState('W') < 0) test.movePlayer(map, -1);
-				if (GetKeyState('A') < 0) test.movePlayer(map, -2);
-				if (GetKeyState('S') < 0) test.movePlayer(map, 1);
-				if (GetKeyState('D') < 0) test.movePlayer(map, 2);
+				if (GetKeyState('W') < 0) test.movePlayer(map, coin, -1);
+				if (GetKeyState('A') < 0) test.movePlayer(map, coin, -2);
+				if (GetKeyState('S') < 0) test.movePlayer(map, coin, 1);
+				if (GetKeyState('D') < 0) test.movePlayer(map, coin, 2);
 				lastInputTick = now;
 			}
 			glTranslatef(50, 200, 0);
-			map.paintMap(test);
+			map.paintMap(test, coin);
+
+
+			glColor3f(0, 0, 0);
+			glPrintText(0, -50, to_string(test.getX() + test.getInBlockX()).c_str(), hDC, base);
+			glPrintText(0, -100, to_string(test.getY() + test.getInBlockY()).c_str(), hDC, base);
+			glPrintText(0, -150, to_string(test.getCoins()).c_str(), hDC, base);
 
 			SwapBuffers(hDC);
 			Sleep(10);
@@ -120,6 +160,8 @@ int WINAPI WinMain(
 	}
 	DisableOpenGL(hwnd, hDC, hRC);
 	DestroyWindow(hwnd);
+	glDeleteLists(base, 256);
+	DeleteObject(hFont);
 
 	return msg.wParam;
 }
