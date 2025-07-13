@@ -1,5 +1,4 @@
 #pragma once
-//#include <GLFW/glfw3.h>
 #include <GL/glew.h>
 #include <Windows.h>
 #include <iostream>
@@ -7,8 +6,9 @@
 #include <vector>
 #include <cmath>
 #include <chrono>
-
-//#pragma comment (lib, "glfw32.lib")
+#include <fstream>
+#include "WindowContext.h"
+#include "List.h"
 
 struct paintSettings
 {
@@ -41,9 +41,9 @@ using namespace chrono;
 const float PI = 3.1415926;
 const int alpha = 65;
 
-const int windowWidth = 2200;
-const int windowHeigth = 900;
+const int windowWidth = 1600;
+const int windowHeigth = 800;
 
-const float blockWidth = 60 * 0.75;
-const float blockHeigth = 90 * 0.75 * cos(alpha * PI / 180);
-const float blockDepth = 50 * 0.75 * sin(alpha * PI / 180);
+const float blockWidth = float(45 * 0.75);
+const float blockHeigth = float(95 * 0.75 * cos(alpha * PI / 180));
+const float blockDepth = float(50 * 0.75 * sin(alpha * PI / 180));

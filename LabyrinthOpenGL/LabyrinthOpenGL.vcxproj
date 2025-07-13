@@ -132,18 +132,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Coin.cpp" />
-    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Game\Coin.cpp" />
+    <ClCompile Include="Game\Entity.cpp" />
+    <ClCompile Include="Game\GameScene.cpp" />
+    <ClCompile Include="Game\Map.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Game\Profile.cpp" />
+    <ClCompile Include="InputField.cpp" />
     <ClCompile Include="LabyrinthOpenGL.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="List.cpp" />
+    <ClCompile Include="Menu\LogInScene.cpp" />
+    <ClCompile Include="Menu\MainScene.cpp" />
+    <ClCompile Include="Menu\PauseScene.cpp" />
+    <ClCompile Include="Menu\SignUpScene.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="WindowContext.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Coin.h" />
-    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Game\Coin.h" />
+    <ClInclude Include="Game\Entity.h" />
+    <ClInclude Include="Game\GameScene.h" />
+    <ClInclude Include="Game\Map.h" />
+    <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Game\Profile.h" />
     <ClInclude Include="Include.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="InputField.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Menu\LogInScene.h" />
+    <ClInclude Include="Menu\MainScene.h" />
+    <ClInclude Include="Menu\PauseScene.h" />
+    <ClInclude Include="Menu\SignUpScene.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="WindowContext.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="profile.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

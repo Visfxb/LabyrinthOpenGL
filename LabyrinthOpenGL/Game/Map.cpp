@@ -4,11 +4,26 @@
 using Entities::Items::Coin;
 using Entities::Fighters::Player;
 
+Map::Map(vector<string> map)
+{
+    this->map = map;
+}
+
+Map::Map(ifstream& file)
+{
+    loadFromFile(file);
+}
+
+vector<string> Map::getMap() const
+{
+    return map;
+}
 
 bool Map::outOfMap(int x, int y) const
 {
     return y < 0 || y >= map.size() || x < 0 || x < 0 >= map[y].size();
 }
+
 void Map::paintWall(initializer_list<paintSettings> arr) const
 {
     glPushMatrix();
@@ -92,6 +107,7 @@ void Map::paintWall(initializer_list<paintSettings> arr) const
 #endif
     glPopMatrix();
 }
+
 void Map::paintFloor(initializer_list<paintSettings> arr, rgb rgb) const
 {
     glPushMatrix();
@@ -147,6 +163,7 @@ void Map::paintFloor(initializer_list<paintSettings> arr, rgb rgb) const
 #endif
     glPopMatrix();
 }
+
 void Map::paintVoid(initializer_list<paintSettings> arr) const
 {
     paintFloor(arr, rgb(0, 0, 0));
@@ -173,6 +190,7 @@ void Map::paintMapf(Entities::Fighters::Player& player)
     player.paint(*this);
     glPopMatrix();
 }
+
 void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
 {
     glPushMatrix();
@@ -184,6 +202,7 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
 
     glTranslatef(0, dY * blockDepth, 0);
     glTranslatef(player.getInBlockX() * -blockWidth, player.getInBlockY() * blockDepth, 0);
+
     for (int i = 0; i <= dY; i++) {
         for (int j = 0; j <= dX; j++) {
             float visiblePart;
@@ -312,4 +331,21 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
     glTranslatef(rX * blockWidth, (rY + 2) * blockDepth, 0);
     player.paint(*this);
     glPopMatrix();
+}
+
+void Map::loadFromFile(ifstream& file)
+{
+    string line;
+    map.clear();
+    while (!file.eof()) {
+        getline(file, line);
+        if (line.size() == 0) continue;
+        map.push_back(line);
+    }
+}
+
+void Map::saveToFile(ofstream& file)
+{
+    for (string line : map)
+        file << line << endl;
 }

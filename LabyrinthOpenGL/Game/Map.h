@@ -1,5 +1,5 @@
 #pragma once
-#include "Include.h"
+#include "../Include.h"
 
 namespace Entities {
     namespace Fighters { class Player; }
@@ -12,8 +12,11 @@ private:
 	vector<string> map;
 
 public:
-    Map(vector<string> map) { this->map = map; }
-    vector<string> getMap()const { return map; }
+    Map() {}
+    Map(vector<string> map);
+    Map(ifstream& file);
+
+    vector<string> getMap()const;
 
     bool outOfMap(int x, int y)const;
     void paintWall(initializer_list<paintSettings> arr = {}) const;
@@ -21,5 +24,7 @@ public:
     void paintVoid(initializer_list<paintSettings> arr = {})const;
     void paintMapf(Entities::Fighters::Player& player);
     void paintMap(Entities::Fighters::Player& player, Entities::Items::Coin& coin);
+    void loadFromFile(ifstream& file);
+    void saveToFile(ofstream& file);
 };
 

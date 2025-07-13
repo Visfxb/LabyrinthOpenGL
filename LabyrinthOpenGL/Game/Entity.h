@@ -1,5 +1,5 @@
 #pragma once
-#include "Include.h"
+#include "../Include.h"
 class Map;
 
 namespace Entities
@@ -19,6 +19,8 @@ namespace Entities
 		float getInBlockY()const { return y - int(y); }
 
 		virtual void paint(Map& map, initializer_list<paintSettings> arr = {})const = 0;
+		virtual void loadFromFile(ifstream& file) = 0;
+		virtual void saveToFile(ofstream& file) = 0;
 	};
 }
 

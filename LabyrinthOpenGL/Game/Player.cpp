@@ -5,7 +5,7 @@
 using Entities::Items::Coin;
 using Entities::Fighters::Player;
 
-Entities::Fighters::Player::Player(int x, int y, float step, Map& map)
+Entities::Fighters::Player::Player(int x, int y, float step, Map& map, int delay)
 {
     if (y >= 0 && y < map.getMap().size() &&
         x >= 0 && x < map.getMap()[y].size() && map.getMap()[y][x] != '#')
@@ -13,8 +13,24 @@ Entities::Fighters::Player::Player(int x, int y, float step, Map& map)
         this->x = float(x);
         this->y = float(y);
         this->step = float(step);
+        this->delay = delay;
         coins = 0;
+        lastInputTick = high_resolution_clock::now();
     }
+    else
+        randXY(map);
+}
+void Entities::Fighters::Player::randXY(Map& map)
+{
+    int newY = rand() % map.getMap().size();
+    int newX = rand() % map.getMap()[newY].size();
+    while (map.getMap()[newY][newX] == '#') {
+        newY = rand() % map.getMap().size();
+        newX = rand() % map.getMap()[newY].size();
+    }
+    x = float(newX);
+    y = float(newY);
+    lastInputTick = high_resolution_clock::now();
 }
 bool Entities::Fighters::Player::isWallNext(Map& map, int vec) const
 {
@@ -36,8 +52,8 @@ void Entities::Fighters::Player::movePlayer(Map& map, Entities::Items::Coin& coi
 {
     if (isWallNext(map, vec))
     {
-        if (vec % 2 == 0) x = int(x + step);
-        else y = int(y + step);
+        if (vec % 2 == 0) x = floor(x + step);
+        else y = floor(y + step);
         return;
     }
     if (vec % 2 == 0) x += vec / 2 * step;
@@ -87,4 +103,14 @@ void Entities::Fighters::Player::paint(Map& map, initializer_list<paintSettings>
         glTranslatef(blockWidth, 0, 0);
     }
     glPopMatrix();
+}
+
+void Entities::Fighters::Player::loadFromFile(ifstream& file)
+{
+    file >> x >> y >> step >> coins;
+}
+
+void Entities::Fighters::Player::saveToFile(ofstream& file)
+{
+    file << "Player " << x << " " << y << " " << step << " " << coins << endl;
 }

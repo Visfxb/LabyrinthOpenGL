@@ -88,3 +88,13 @@ void Entities::Items::Coin::paint(Map& map, initializer_list<paintSettings> arr)
     glEnd();
     glPopMatrix();
 }
+
+void Entities::Items::Coin::loadFromFile(ifstream& file)
+{
+    file >> x >> y;
+}
+
+void Entities::Items::Coin::saveToFile(ofstream& file)
+{
+    file << "Coin " << x << " " << y << endl;
+}
