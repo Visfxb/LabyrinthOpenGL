@@ -146,6 +146,7 @@
     <ClCompile Include="Menu\MainScene.cpp" />
     <ClCompile Include="Menu\PauseScene.cpp" />
     <ClCompile Include="Menu\SignUpScene.cpp" />
+    <ClCompile Include="WindowContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -167,6 +168,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="profile.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

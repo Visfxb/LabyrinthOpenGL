@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LogInScene" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Scene">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="-0.48" Y="-0.301" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AICAAAAAIAAAAAAAAAIAAIAAAAAAEAAAAAIAAgAEASA=</HashCode>
+      <FileName>Menu\LogInScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainScene" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Scene">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="-0.418" Y="-0.253" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAIAAAEAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Menu\MainScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PauseScene" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Scene">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="-0.508" Y="-0.246" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAIAAQAAAAACAAAAABAAAAAEAAA=</HashCode>
+      <FileName>Menu\PauseScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SignUpScene" Collapsed="true">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Scene">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="-0.536" Y="-0.28" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AICgAAEAAAAAAAAQAAIAAIAIAAAAAAAAAAAAEAAEACA=</HashCode>
+      <FileName>Menu\SignUpScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowContext" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SIBgAgCAAAAABARARgABEAAEAAABwAQIAAAoABgABAg=</HashCode>
+      <FileName>WindowContext.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAIAIgAQAAQAAAACQAEAAAAAAEAAA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buttons::InputField" Collapsed="true">
+    <Position X="11.75" Y="2" Width="1.5" />
+    <InheritanceLine Type="Buttons::Button">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="-0.412" Y="-0.265" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AIgAAGEAAIAABAAAIAAgQIgAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>InputField.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buttons::Button" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEgAAAAAAAAAAAQAQAAgAAAAQAAAACAIAABgAAEAAAA=</HashCode>
+      <FileName>Button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entities::Items::Coin" Collapsed="true">
+    <Position X="20.5" Y="2" Width="1.5" />
+    <InheritanceLine Type="Entities::Entity">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="-0.266" Y="-0.3" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAgAAAIAAAAAAAAAAAAABAAgAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Game\Coin.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entities::Entity" Collapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAiACAAAAAAAABwEGAAAAA=</HashCode>
+      <FileName>Game\Entity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameScene" Collapsed="true">
+    <Position X="2.5" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Scene">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="-0.48" Y="-0.273" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AIAAEAAAAAAAAAAAAAIAAAAAAIQAEAABAAAAAAAEAAA=</HashCode>
+      <FileName>Game\GameScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Profile" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAEAAAAAAAABAAAACAAAAAgAAAAAAAAABAQAgAAAwA=</HashCode>
+      <FileName>Game\Profile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_List::Node&lt;T&gt;" Collapsed="true">
+    <Position X="14" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAMAAAA=</HashCode>
+      <FileName>List.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_List::List&lt;U&gt;" Collapsed="true">
+    <Position X="12.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAACACgABAgAAAxIEAAAASAAEgAAAAAAEAAAAAAgI=</HashCode>
+      <FileName>List.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entities::Fighters::Player" Collapsed="true">
+    <Position X="17.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAIAAAAAAAAIACAAAKggAAAgAAACAAAQCYBgAAg=</HashCode>
+      <FileName>Game\Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Map" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAQAhAAAAAEQAAAAAAgAAAAAAAAAAAQAAQAAAA=</HashCode>
+      <FileName>Game\Map.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
