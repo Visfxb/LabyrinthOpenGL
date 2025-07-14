@@ -16,11 +16,11 @@ void GameScene::update(int mouseX, int mouseY)
     SHORT currentState = GetAsyncKeyState(VK_LBUTTON) & 0x8000;
 
     if (currentState && !wasLeftPressed) {
-        //  нопка нажата
+        // Button pressed
         wasLeftPressed = true;
     }
     else if (!currentState && wasLeftPressed) {
-        //  нопка отпущена
+        // Button released
         wasLeftPressed = false;
         for (auto item : buttons) {
             if (item->isHovered(mouseX, mouseY))

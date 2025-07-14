@@ -16,6 +16,7 @@ namespace Entities {
 
             void randXY(Map& map);
             void paint(Map& map, initializer_list<paintSettings> arr = {})const override;
+
             void loadFromFile(ifstream& file) override;
             void saveToFile(ofstream& file) override;
         };

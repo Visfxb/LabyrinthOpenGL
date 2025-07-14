@@ -24,6 +24,7 @@ public:
     void paintVoid(initializer_list<paintSettings> arr = {})const;
     void paintMapf(Entities::Fighters::Player& player);
     void paintMap(Entities::Fighters::Player& player, Entities::Items::Coin& coin);
+
     void loadFromFile(ifstream& file);
     void saveToFile(ofstream& file);
 };

@@ -23,7 +23,7 @@ namespace _List {
     private:
         Node<U>* head;
         Node<U>* tail;
-        size_t count;
+        unsigned int count;
 
     public:
         class Iterator {
@@ -95,12 +95,12 @@ namespace _List {
             --count;
         }
 
-        void remove_at(size_t index) {
+        void remove_at(int index) {
             if (index >= count) throw out_of_range("Index out of range");
             if (index == 0) return pop_front();
 
             Node<U>* prev = head;
-            for (size_t i = 0; i < index - 1; ++i)
+            for (int i = 0; i < index - 1; ++i)
                 prev = prev->next;
 
             Node<U>* toDelete = prev->next;
@@ -110,13 +110,13 @@ namespace _List {
             --count;
         }
 
-        void insert(size_t index, U value) {
+        void insert(int index, U value) {
             if (index > count) throw out_of_range("Index out of range");
             if (index == 0) return push_front(value);
             if (index == count) return push_back(value);
 
             Node<U>* prev = head;
-            for (size_t i = 0; i < index - 1; ++i)
+            for (int i = 0; i < index - 1; ++i)
                 prev = prev->next;
 
             Node<U>* node = new Node<U>(value);
@@ -125,15 +125,15 @@ namespace _List {
             ++count;
         }
 
-        U& operator[](size_t index) {
+        U& operator[](int index) {
             if (index >= count) throw out_of_range("Index out of range");
             Node<U>* current = head;
-            for (size_t i = 0; i < index; ++i)
+            for (int i = 0; i < index; ++i)
                 current = current->next;
             return current->info;
         }
 
-        size_t size() const { return count; }
+        int size() const { return count; }
         bool empty() const { return count == 0; }
 
         void clear() {

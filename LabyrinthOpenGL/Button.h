@@ -20,10 +20,9 @@ namespace Buttons {
 		Button(int x, int y, int width, int height, string text, Scene* nextScene)
 			: x(x), y(y), width(width), height(height), text(text), nextScene(nextScene) {}
 		virtual ~Button() {}
+
 		Scene* getNextScene()const;
-
 		virtual void paint() const;
-
 		bool isHovered(int mouseX, int mouseY) const;
 	};
 }

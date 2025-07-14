@@ -211,7 +211,7 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
             bool outOfMap = mapY < 0 || mapY >= map.size() ||
                 mapX < 0 || mapX >= map[mapY].size();
 
-            // Монета
+            // Coin
             if (mapY == coin.getY() && mapX == coin.getX())
             {
                 if ((i == 0 || i == dY) && (j == 0 || j == dX)) {
@@ -240,7 +240,7 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
                     coin.paint(*this);
             }
 
-            //Углы
+            // Angles
             else if ((i == 0 || i == dY) && (j == 0 || j == dX))
             {
                 if (outOfMap)
@@ -258,7 +258,7 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
                 paintWall({paintSettings(2 - (4 * j / dX), j == 0 ? 1 - player.getInBlockX() : player.getInBlockX()),
                            paintSettings(1, (blockDepth + blockDepth * (1 - player.getInBlockY())) / (blockDepth + blockHeigth))});
             }
-            // Левый край
+            // Left
             else if (j == 0 && !outOfMap) {
                 if (map[mapY][mapX] == '#')
                     paintWall({ paintSettings(2, 1 - player.getInBlockX()) });
@@ -268,7 +268,7 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
             else if (j == 0 && outOfMap)
                 paintVoid({ paintSettings(2, 1 - player.getInBlockX()) });
 
-            // Правый край
+            // Right
             else if (j == dX && !outOfMap) {
                 if (map[mapY][mapX] == '#')
                     paintWall({ paintSettings(-2, player.getInBlockX()) });
@@ -277,7 +277,7 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
             }
             else if (j == dX && outOfMap)
                 paintVoid({ paintSettings(-2, player.getInBlockX()) });
-            // Верхний край
+            // Top
             else if (i == 0 && !outOfMap) {
                 if (player.getInBlockY() != 0)
                     visiblePart = (blockDepth * (1 - player.getInBlockY())) / (blockDepth + blockHeigth);
@@ -292,7 +292,7 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
                 paintVoid({ paintSettings(1, 1 - player.getInBlockY()) });
             else if (i == 1 && !outOfMap && map[mapY][mapX] == '#' && player.getInBlockY() != 0)
                 paintWall({ paintSettings(1, (blockDepth + blockDepth * (1 - player.getInBlockY())) / (blockDepth + blockHeigth)) });
-            // Нижний край
+            // Bottom
             else if (i == dY && !outOfMap) {
                 if (player.getInBlockY() != 0)
                     visiblePart = 1 - (blockDepth * (1 - player.getInBlockY())) / (blockDepth + blockHeigth);
@@ -312,7 +312,7 @@ void Map::paintMap(Entities::Fighters::Player& player, Coin& coin)
                 }
             }
 
-            // Внутренние блоки
+            // Inside
             else if (i == dY && outOfMap)
                 paintVoid({ paintSettings(-1, player.getInBlockY()) });
             else {

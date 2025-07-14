@@ -10,12 +10,10 @@ void PauseScene::update(int mouseX, int mouseY)
     SHORT currentState = GetAsyncKeyState(VK_LBUTTON) & 0x8000;
 
     if (currentState && !wasLeftPressed) {
-        //  нопка нажата
         wasLeftPressed = true;
     }
 
     else if (!currentState && wasLeftPressed) {
-        //  нопка отпущена
         wasLeftPressed = false;
         for (auto item : buttons) {
             if (item->isHovered(mouseX, mouseY))
@@ -30,9 +28,9 @@ void PauseScene::draw()
 {
     WindowContext::getInstance().updateSize();
 
-    WindowContext& ctx = WindowContext::getInstance();
-    int width = ctx.getWidth();
-    int height = ctx.getHeight();
+    WindowContext& context = WindowContext::getInstance();
+    int width = context.getWidth();
+    int height = context.getHeight();
 
     pastScene->draw();
     glEnable(GL_BLEND);

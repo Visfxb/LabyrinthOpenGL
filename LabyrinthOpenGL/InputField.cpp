@@ -20,7 +20,7 @@ void Buttons::InputField::handleInput(string* output)
             cursorPos--;
         }
         else if (wParam >= 32 && wParam <= 126) {
-            inputText.insert(inputText.begin() + cursorPos, static_cast<char>(wParam));
+            inputText.insert(inputText.begin() + cursorPos, char(wParam));
             cursorPos++;
         }
         lastInputTick = now;

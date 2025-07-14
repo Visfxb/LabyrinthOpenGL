@@ -73,4 +73,4 @@ public:
     LPARAM getLastLParam() const { return lastLParam; }
 };
 
-// WindowContext::getInstance().setLastMessage(uMsg, wParam, lParam);   â WindowProc
+// WindowContext::getInstance().setLastMessage(uMsg, wParam, lParam);   in WindowProc

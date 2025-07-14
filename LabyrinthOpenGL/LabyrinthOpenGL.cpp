@@ -4,6 +4,7 @@
 #include "Menu/LogInScene.h"
 #include "Menu/SignUpScene.h"
 
+
 int findMaxId(string profilesName) {
 	ifstream profiles(profilesName);
 	Profile bufProfile = Profile();
@@ -20,9 +21,7 @@ int findMaxId(string profilesName) {
 }
 
 string profiles = "profile.txt";
-
 int Profile::id = findMaxId(profiles) + 1;
-
 
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
@@ -96,6 +95,9 @@ int WINAPI WinMain(
 	GLuint base = glGenLists(256);
 	wglUseFontBitmaps(hDC, 0, 256, base);
 	WindowContext::getInstance().setFont(hFont, base);
+
+
+
 
 	srand(time(0));
 	

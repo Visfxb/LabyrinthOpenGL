@@ -16,10 +16,7 @@ public:
     LogInScene(string fileName, _List::List<Buttons::Button*> buttons = {});
 
     void handleInput() override;
-
     void update(int mouseX, int mouseY) override;
-
     void draw() override;
-
     bool checkLogin(const string& name, const string& pass);
 };

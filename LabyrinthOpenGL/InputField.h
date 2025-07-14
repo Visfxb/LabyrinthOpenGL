@@ -13,19 +13,15 @@ namespace Buttons {
         int delay = 150;
 
     public:
-        InputField(int x, int y, int width, int height, const std::string& placeholder, string target = "")
+        InputField(int x, int y, int width, int height, string placeholder, string target = "")
             : Button(x, y, width, height, placeholder, nullptr), target(target) {
         }
 
         string getTarget() const { return target; }
-
         void handleInput(string* output);
-
         void activate() { active = true; }
         void deactivate() { active = false; }
-
         string getInput() const { return inputText; }
-
         void paint() const override;
     };
 }

@@ -33,7 +33,7 @@ struct rgb
     }
 };
 
-#define debugLinesf
+#define debugLines
 
 using namespace std;
 using namespace chrono;

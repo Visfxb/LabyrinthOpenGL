@@ -21,6 +21,7 @@ namespace Entities {
             Player() {}
             Player(Map& map) { randXY(map); }
             Player(int x, int y, float step, Map& map, int delay);
+
             float getStep()const { return step; }
             void setStep(float step) { this->step = step; }
             int getCoins()const { return coins; }
@@ -32,6 +33,7 @@ namespace Entities {
             bool isWallNext(Map& map, int vec) const;
             void movePlayer(Map& map, Entities::Items::Coin& coin, int vec);
             void paint(Map& map, initializer_list<paintSettings> arr = {})const override;
+
             void loadFromFile(ifstream& file) override;
             void saveToFile(ofstream& file) override;
         };

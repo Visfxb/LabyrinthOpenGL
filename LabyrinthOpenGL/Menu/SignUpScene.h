@@ -13,16 +13,11 @@ private:
 
 
 public:
-    //SignUpScene(string fileName, vector<Buttons::Button*> buttons = {});
     SignUpScene(string fileName, _List::List<Buttons::Button*> buttons = {});
 
     void handleInput() override;
-
     void update(int mouseX, int mouseY) override;
-
     void draw() override;
-
     void checkAndSaveProfile();
-
     void resetInputFields();
 };

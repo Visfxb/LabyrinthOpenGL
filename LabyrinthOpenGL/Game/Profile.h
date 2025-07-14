@@ -14,8 +14,10 @@ protected:
 public:
 	Profile();
 	Profile(string nickname, string password);
+
 	void setId(int id);
 	int getId();
+	
 	void loadFromFile(ifstream& file);
 	void saveToFile(ofstream& file);
 };

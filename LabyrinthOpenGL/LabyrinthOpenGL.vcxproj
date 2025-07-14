@@ -146,8 +146,6 @@
     <ClCompile Include="Menu\MainScene.cpp" />
     <ClCompile Include="Menu\PauseScene.cpp" />
     <ClCompile Include="Menu\SignUpScene.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="WindowContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
